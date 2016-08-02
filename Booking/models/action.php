@@ -18,16 +18,15 @@
                 $ans = str_pad($ans,3, "0", STR_PAD_LEFT);
                 $ans = $date.$ans;
             }
-            
             return $ans;
         }
         function insert_ac($action,$ans){
             $start = $action['start_time_y']."-".$action['start_time_m']."-".$action['start_time_d']." ".$action['start_time_h'].":".$action['start_time_n'].":".$action['start_time_s'];
             $end = $action['end_time_y']."-".$action['end_time_m']."-".$action['end_time_d']." ".$action['end_time_h'].":".$action['end_time_n'].":".$action['end_time_s'];
+            
             $cmd = "INSERT INTO `action` (`action_ID`,`action_name`,`action_count`,`action_get`,`action_start`,`action_end`)
             VALUES('".$ans."','".$action['action_name']."','".$action['action_count']."','".$action['action_get']."',
             '".$start."','".$end."');";
-            
             $this->connect_getdata($cmd);
             
             return "YES";
