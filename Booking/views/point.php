@@ -20,7 +20,7 @@
 <body>
     <?php 
         echo $data[0];
-        echo $data[1];  
+          
     ?>
     <!-- Bootstrap Core js -->
     <script src="<?php echo $root;?>views/js/bootstrap.js"></script>

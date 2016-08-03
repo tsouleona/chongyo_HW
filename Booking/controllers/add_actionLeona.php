@@ -9,49 +9,27 @@ class add_actionLeona extends Controller{
         }
         function insert_action(){
             if($_POST['action_name']=="" || $_POST['action_count']=="" || $_POST['action_get']=="" ||
-                $_POST['start_time_y']=="" || $_POST['start_time_m']=="" || $_POST['start_time_d']=="" || 
-                $_POST['start_time_h']=="" || $_POST['start_time_n']=="" || $_POST['start_time_s']=="" ||
-                $_POST['end_time_y']=="" || $_POST['end_time_m']=="" || $_POST['end_time_s']=="" || 
-                $_POST['end_time_h']=="" || $_POST['end_time_n']=="" || $_POST['end_time_s']=="")
+                $_POST['time']=="" || $_POST['date']=="" || $_POST['start_time']=="" || 
+                $_POST['start_date']=="" || $_POST['end_time']=="" || $_POST['end_date']=="" ||
+                $_POST['action_data']=="")
             {
                 $this->error("尚未輸入完整");
                 exit;
             }
-            if($this ->compare_number($_POST['action_count'])=='NO' || $_POST['start_time_y']=="NO" || 
-                $this ->compare_number($_POST['start_time_m'])=="NO" || $this ->compare_number($_POST['start_time_d'])=="NO" || 
-                $this ->compare_number($_POST['start_time_h'])=="NO" || $this ->compare_number($_POST['start_time_n'])=="NO" || 
-                $this ->compare_number($_POST['start_time_s'])=="NO" || $this ->compare_number($_POST['end_time_y'])=="NO" || 
-                $this ->compare_number($_POST['end_time_m'])=="NO" || $this ->compare_number($_POST['end_time_d'])=="NO" || 
-                $this ->compare_number($_POST['end_time_h'])=="NO" || $this ->compare_number($_POST['end_time_n'])=="NO" || 
-                $this ->compare_number($_POST['end_time_s'])=="NO")
+            if($this->compare_number($_POST['action_get'])=="NO")
             {
-                $this->error("時間與人數要輸入整數");
+                $this->error("攜伴的欄位請填數字");
                 exit;
             }
-            if(strlen($_POST['start_time_y'])!=4 || strlen($_POST['end_time_y'])!=4 || strlen($_POST['start_time_m'])!=2 ||
-               strlen($_POST['start_time_d'])!=2 || strlen($_POST['end_time_m'])!=2 || strlen($_POST['end_time_d'])!=2 ||
-               strlen($_POST['start_time_h'])!=2 || strlen($_POST['start_time_n'])!=2 || strlen($_POST['start_time_s'])!=2 ||
-               strlen($_POST['end_time_h'])!=2 || strlen($_POST['end_time_n'])!=2 || strlen($_POST['end_time_s'])!=2)
-           {
-                $this->error("年份請輸入西元年，月、日、時間請輸入兩位數字");
-                exit;
-           }
-           if($_POST['start_time_m']>12 || $_POST['end_time_m']>12 || $_POST['start_time_d']>31 || $_POST['end_time_d']>31 ||
-           $_POST['start_time_h']>24 || $_POST['end_time_h']>24 || $_POST['start_time_n']>60 || $_POST['end_time_n']>60 ||
-           $_POST['start_time_s']>60 || $_POST['end_time_s']>60)
-           {
-                $this->error("日期、時間輸入不正確");
-                exit;
-           }
-            
             $action = $this->model("action");
+            $join = $this->model("join_action");
             
             $date = date("Ymd");
             $ans = $action->select_ac($date);
             
-            $op2 = $action->insert_ac($_POST,$ans);
+            $op = $action->insert_ac($_POST,$ans);
             
-            if($op2 == "YES")
+            if($op == "YES")
             {
                 $this->success("成功建立");
                 exit;

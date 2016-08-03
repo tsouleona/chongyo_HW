@@ -35,43 +35,50 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>活動總人數</strong></h4></label>
+                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>活動時間</strong></h4></label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="date"/>
+                            <input type="time" class="form-control" id="time"/>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>活動內容</strong></h4></label>
+                        <div class="col-sm-8">
+                            <textarea row="5" class="form-control" id="action_data" placeholder="在哪裡舉辦....." /></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>活動人數限制</strong></h4></label>
                         <div class="col-sm-8">
                             <input  class="form-control" id="action_count" placeholder="100" />
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>是否可攜伴</strong></h4></label>
+                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>可攜伴人數</strong></h4></label>
                         <div class="col-sm-8">
-                            <input  class="form-control" id="action_get" placeholder="請填是或否" />
+                            <input  class="form-control" id="action_get" />
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>報名開始時間</strong></h4></label>
+                        <div class="col-sm-8">
+                            <input type="date" class="form-control" id="start_date"/>
+                            <input type="time" class="form-control" id="start_time"/>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>開始時間</strong></h4></label>
+                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>報名結束時間</strong></h4></label>
                         <div class="col-sm-8">
-                            <input  id="start_time_y" placeholder="2016"/><h5 style="color:#fff"><strong>年</strong></h5>
-                            <input  id="start_time_m" placeholder="07"/><h5 style="color:#fff"><strong>月</strong></h5>
-                            <input  id="start_time_d" placeholder="18"/><h5 style="color:#fff"><strong>日</strong></h5>
-                            <input  id="start_time_h" placeholder="15"/><h5 style="color:#fff"><strong>時</strong></h5>
-                            <input  id="start_time_n" placeholder="30"/><h5 style="color:#fff"><strong>分</strong></h5>
-                            <input  id="start_time_s" placeholder="00"/><h5 style="color:#fff"><strong>秒</strong></h5>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label  class="col-sm-3 control-label"><h4 style="color:#fff"><strong>結束時間</strong></h4></label>
-                        <div class="col-sm-8">
-                            <input  id="end_time_y" placeholder="2016"/><h5 style="color:#fff"><strong>年</strong></h5>
-                            <input  id="end_time_m" placeholder="07"/><h5 style="color:#fff"><strong>月</strong></h5>
-                            <input  id="end_time_d" placeholder="18"/><h5 style="color:#fff"><strong>日</strong></h5>
-                            <input  id="end_time_h" placeholder="15"/><h5 style="color:#fff"><strong>時</strong></h5>
-                            <input  id="end_time_n" placeholder="30"/><h5 style="color:#fff"><strong>分</strong></h5>
-                            <input  id="end_time_s" placeholder="00"/><h5 style="color:#fff"><strong>秒</strong></h5>
+                            <input type="date" class="form-control" id="end_date"/>
+                            <input type="time" class="form-control" id="end_time"/>
                         </div>
                     </div>
                     <div id="debug"></div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <input id="creative" style="background:#d11141" type="button" class="btn btn-success btn-lg" value="建立活動" />
+                            <button class="btn btn-success btn-lg"><a style="color:#FFF" href="<?php echo $root;?>index">回首頁</a></button>
                         </div>
                     </div>
                     
@@ -83,19 +90,14 @@
                         $.post("<?php echo $root;?>add_action/insert_action",{
                             action_name:$("#action_name").val(),
                             action_count:$("#action_count").val(),
+                            action_data:$("#action_data").val(),
                             action_get:$("#action_get").val(),
-                            start_time_y:$("#start_time_y").val(),
-                            start_time_m:$("#start_time_m").val(),
-                            start_time_d:$("#start_time_d").val(),
-                            start_time_h:$("#start_time_h").val(),
-                            start_time_n:$("#start_time_n").val(),
-                            start_time_s:$("#start_time_s").val(),
-                            end_time_y:$("#end_time_y").val(),
-                            end_time_m:$("#end_time_m").val(),
-                            end_time_d:$("#end_time_d").val(),
-                            end_time_h:$("#end_time_h").val(),
-                            end_time_n:$("#end_time_n").val(),
-                            end_time_s:$("#end_time_s").val()
+                            date:$("#date").val(),
+                            time:$("#time").val(),
+                            start_date:$("#start_date").val(),
+                            start_time:$("#start_time").val(),
+                            end_date:$("#end_date").val(),
+                            end_time:$("#end_time").val(),
                         },function(data){
                             $("#debug").html("");
                             $("#debug").append(data);
@@ -108,6 +110,6 @@
     </div>
     
     <!-- Bootstrap Core js -->
-    <script src="<?php echo $root;?>views/js/bootstrap.js"></script>
+    
 </body>
 </html>
