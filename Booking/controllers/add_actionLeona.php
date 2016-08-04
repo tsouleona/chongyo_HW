@@ -7,6 +7,7 @@ class add_actionLeona extends Controller{
             $this->view("add_action");
             
         }
+        
         function insert_action(){
             if($_POST['action_name']=="" || $_POST['action_count']=="" || $_POST['action_get']=="" ||
                 $_POST['time']=="" || $_POST['date']=="" || $_POST['start_time']=="" || 
@@ -31,7 +32,7 @@ class add_actionLeona extends Controller{
             
             if($op == "YES")
             {
-                $this->success("成功建立");
+                $this->success("建立成功");
                 exit;
             }
         }

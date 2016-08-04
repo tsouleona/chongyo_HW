@@ -14,7 +14,40 @@ class join_actionLeona extends Controller{
             $this->view("join_view",Array($row,$row2));
             
         }
-        
+        function join_mem(){
+            $ID = $_GET['ID'];
+            $row = $this->join_select_view($ID);
+            $this->view("add_mem",Array($row));
+        }
+        function insert_can_join()
+        {
+            $join = $this->model("join_action");
+            $op = $join->select_mem($_POST['mem_number']);
+            if($op !=NULL)
+            {
+                $op2 = $join->select_can_join($_POST['action_ID'],$_POST['mem_number']);
+                if($op2 != NULL)
+                {
+                    $op3 = $join->insert_can($_POST);
+                    if($op3 == 'ok')
+                    {
+                        $this->success("新增成功");
+                        exit;
+                    }
+                }
+                else
+                {
+                    $this->error("已在名單內");
+                    exit;
+                }
+            }
+            else
+            {
+                $this->error("查無此人");
+                exit;
+            }
+            
+        }
         function join_select(){
             $join = $this->model("join_action");
             $row = $join->select_action();
@@ -45,10 +78,14 @@ class join_actionLeona extends Controller{
             }
             $join = $this->model("join_action");
             
-            $op = $join->select_member($_POST['mem_number']);//檢查有沒有個人
+            $op = $join->select_can_join($_POST['action_ID'],$_POST['mem_number']);//檢查表單有沒有個人
             
             if($op != NULL)
             {
+                $op4 = $join->select_mem($op);
+                if($op4!=NULL){
+                    
+                }
                 $op2 = $join->select_front($_POST['mem_number'],$_POST['action_ID']);//檢查有沒有在活動名單內
                 if($op2=='ok')
                 {
@@ -62,8 +99,8 @@ class join_actionLeona extends Controller{
                     
                     if($op3 == 'ok')
                     {
-                        $op4 = $join->insert_front($_POST,$op);//加入活動
-                        if($op4 == 'ok')
+                        $op5 = $join->insert_front($_POST,$op4);//加入活動
+                        if($op5 == 'ok')
                         {
                             $this->success($_POST['mem_number']."申請成功");
                             exit;

@@ -100,7 +100,7 @@
                             end_time:$("#end_time").val(),
                         },function(data){
                             $("#debug").html("");
-                            $("#debug").append(data);
+                            $("#debug").html(data);
                         })
                     })
                 });

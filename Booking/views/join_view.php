@@ -38,7 +38,10 @@
                        <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;活動內容</font></strong></h4>
                     </td>
                     <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;目前人數</font></strong></h4>
+                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;剩餘名額</font></strong></h4>
+                    </td>
+                    <td align="center">
+                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;報名人數</font></strong></h4>
                     </td>
                     <td align="center">
                        <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;參與與否</font></strong></h4>
@@ -60,23 +63,22 @@
                             <h4><?php echo $row[0]['action_count'];?></h4>
                         </td>
                         <td align="center">
-
+                            <h4><?php echo $row[0]['action_total'] - $row[0]['action_count'];?></h4>
+                        </td>
+                        <td align="center">
                             <?php if($row[0]['action_count']==0){?>
                             <button disabled="disabled" data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
                             <?php }?>
                             <?php if($row[0]['action_count']!=0){?>
                             <button data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
                             <?php }?>
-
-                            
-
                         </td>
                     </tr>
                             
             </table>
 
             <!--參加活動modal-->
-                <div class="modal fade" id="mymodal<?php echo $row[0]['action_ID']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade" id="mymodal<?php echo $row[0]['action_ID'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <form id="form1">
                             <div class="modal-content">

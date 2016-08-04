@@ -29,9 +29,7 @@
                 <?php if($_SESSION['username'] != NULL){?>
                 <a href="<?php echo $root;?>add_action/add" class="list-group-item"><h4><strong>新增活動</strong></h4></a>
                 <?php }?>
-                <?php if($_SESSION['username'] == NULL){?>
-                <a  class="list-group-item"><h4><strong>新增活動</strong></h4></a>
-                <?php }?>
+                
                 <a href="<?php echo $root;?>join_action/together" class="list-group-item"><h4><strong>參加活動</strong></h4></a>
                 <?php if($_SESSION['username'] == NULL){?>
                 <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#mymodal">管理員登錄</button>

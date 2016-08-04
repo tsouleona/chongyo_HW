@@ -11,9 +11,16 @@
             $array = array($ID);
             $cmd = "SELECT * FROM `action` WHERE `action_ID`=?";
             $row = $this->connect_getdata($cmd,$array);
-            
             return $row;
         }
+        function insert_can($join){
+
+            $array = array($join['action_ID'],$join['mem_number']);
+            $cmd = "INSERT INTO `can_join`(`action_ID`,`mem_number`)VALUES(?,?);";
+            $this->connect_mysql($cmd,$array);
+            return 'ok';
+        }
+        
         function select_view_front($ID)
         {
             $array = array($ID);
@@ -32,9 +39,9 @@
                 return 'ok';
             }
         }
-        function select_member($member_ID){
-            $array = array($member_ID);
-            $cmd ="SELECT * FROM `member`";
+        function select_can_join($action_ID,$member_ID){
+            $array = array($action_ID);
+            $cmd ="SELECT * FROM `can_join` WHERE `action_ID`=?";
             $row = $this->connect_getdata($cmd,$array);
             
             $x = count($row);
@@ -42,12 +49,18 @@
             {
                 if($row[$i]['mem_number'] == $member_ID)
                 {
-                    return $row[$i]['mem_name'];
+                    return $row[$i]['mem_number'];
                     exit;
                 }
                 
             }
             
+        }
+        function select_mem($member_ID){
+            $array = array($member_ID);
+            $cmd = "SELECT * FROM `member` WHERE `mem_number`=?";
+            $row = $this->connect_getdata($cmd,$array);
+            return $row[0]['mem_name'];
         }
         function insert_front($join,$op){
             $array = array($join['action_ID'],$join['mem_number'],$op,$join['front_get']);

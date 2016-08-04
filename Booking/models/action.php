@@ -26,9 +26,9 @@
             $start = $action['start_date']." ".$action['start_time'];
             $end = $action['end_date']." ".$action['end_time'];
             
-            $array = array($ans,$action['action_name'],$date,$action['action_data'],$action['action_count'],$action['action_get'],$start,$end);
-            $cmd = "INSERT INTO `action` (`action_ID`,`action_name`,`action_datetime`,`action_data`,`action_count`,`action_get`,`action_start`,`action_end`)
-            VALUES(?,?,?,?,?,?,?,?);";
+            $array = array($ans,$action['action_name'],$date,$action['action_data'],$action['action_count'],$action['action_count'],$action['action_get'],$start,$end);
+            $cmd = "INSERT INTO `action` (`action_ID`,`action_name`,`action_datetime`,`action_data`,`action_total`,`action_count`,`action_get`,`action_start`,`action_end`)
+            VALUES(?,?,?,?,?,?,?,?,?);";
             
             $this->connect_mysql($cmd,$array);
             
