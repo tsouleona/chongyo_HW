@@ -60,7 +60,7 @@ date_default_timezone_set("Asia/Taipei");
                                     <h4><?php echo $row[$j]['action_name'];?></h4>
                                 </td>
                                 <td align="center">
-                                    <a href="<?php echo $root;?>join_action/join_view?ID=<?php echo $row[$j]['action_ID'];?>">https://lab1-srt459vn.c9users.iojoin_action/join_view?ID=<?php echo $row[$j]['action_ID'];?></a>
+                                    <a href="<?php echo $root;?>join_action/join_view?ID=<?php echo $row[$j]['action_ID'];?>">https://lab1-srt459vn.c9users.io<?php echo $root;?>join_action/join_view?ID=<?php echo $row[$j]['action_ID'];?></a>
                                 </td>
                                 <td align="center">
                                     <h4><?php echo $row[$j]['action_count'];?></h4>

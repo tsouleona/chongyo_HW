@@ -1,7 +1,7 @@
 <?php 
     class connect_db{
         function db(){
-            $root = "/Booking/";
+            $root = "/booking_HW/Booking/";
             return $root;
         }
     }

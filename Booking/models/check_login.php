@@ -1,8 +1,9 @@
 <?php 
     class check_login extends connect_two{
         function select(){
+            $array = array();
             $cmd = "SELECT * FROM `admin`;";
-            $row = $this->connect_getdata($cmd);
+            $row = $this->connect_getdata($cmd,$array);
             return $row;
         }
         function login($row,$admin){
