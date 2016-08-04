@@ -18,9 +18,11 @@
     
 </head>
 <body>
+
     <br><br><br>
     <?php $row = $data[0];
           $row2 = $data[1];
+
     ?>
     <div class="row" align="center">
         <div class="container">
@@ -58,16 +60,21 @@
                             <h4><?php echo $row[0]['action_count'];?></h4>
                         </td>
                         <td align="center">
+
                             <?php if($row[0]['action_count']==0){?>
                             <button disabled="disabled" data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
                             <?php }?>
                             <?php if($row[0]['action_count']!=0){?>
                             <button data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
                             <?php }?>
+
+                            
+
                         </td>
                     </tr>
                             
             </table>
+
             <!--參加活動modal-->
                 <div class="modal fade" id="mymodal<?php echo $row[0]['action_ID']?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
@@ -114,6 +121,7 @@
                 <a style="color:#FFF" href="<?php echo $root;?>index"><button class="btn btn-success btn-lg">回首頁</button></a>
         </div>
     </div>
+
     
     <!--顯示參加的人-->
     <hr style="border:2px #38c0df solid;">
@@ -158,7 +166,7 @@
             </table>
         </div>
     </div>
-    
+
     <!-- Bootstrap Core js -->
     <script src="<?php echo $root;?>views/js/bootstrap.js"></script>
 </body>
