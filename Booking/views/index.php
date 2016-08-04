@@ -8,7 +8,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Booking</title>
+    <title>Booking-首頁</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<?php echo $root;?>views/css/bootstrap.css" rel="stylesheet">

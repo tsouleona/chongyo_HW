@@ -1,18 +1,19 @@
 <?php 
     class action extends connect_two{
-        
+
+//**搜尋編號並編號**//
         function select_ac($date){
             $array = array($date);
             $cmd = "SELECT `action_ID` FROM `action` WHERE `action_ID` LIKE '%?%' ORDER BY `action_ID` DESC LIMIT 0,1;";
             $row = $this->connect_getdata($cmd,$array);
             $one="001";
-            //圖片編號若不為第一筆則從當天的最後一筆+1
+            //編號若不為第一筆則從當天的最後一筆+1
             if($row[0]['action_ID'] == NULL)
             {
                 $ans = $date.$one;
                 
             }
-            //圖片編號若不為第一筆則從當天的最後一筆+1
+            //片編號若不為第一筆則從當天的最後一筆+1
             else{
                 $ans = substr($row[0]['action_ID'],8,3);
                 $ans = (int)($ans) + 1;
@@ -21,6 +22,7 @@
             } 
             return $ans;
         }
+//**新增活動**//
         function insert_ac($action,$ans){
             $date = $action['date']." ".$action['time'];
             $start = $action['start_date']." ".$action['start_time'];

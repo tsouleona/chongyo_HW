@@ -25,6 +25,7 @@ date_default_timezone_set("Asia/Taipei");
     <?php $row = $data[0];
           
     ?>
+<!--顯示活動時間、名稱、網址、人數-->
     <div class="row" align="center">
         <div class="container">
             <table class="table table-hover">
@@ -41,9 +42,10 @@ date_default_timezone_set("Asia/Taipei");
                     <td align="center">
                        <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;剩餘人數</font></strong></h4>
                     </td>
+<!--管理員可以新增可參加員工-->
                     <?php if($_SESSION['username']!=NULL){?>
                     <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;新增人員</font></strong></h4>
+                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;新增員工</font></strong></h4>
                     </td>
                     <?php }?>
                     
@@ -70,6 +72,7 @@ date_default_timezone_set("Asia/Taipei");
                                 <td align="center">
                                     <h4><?php echo $row[$j]['action_count'];?></h4>
                                 </td>
+<!--管理員可以新增可參加員工-->
                                 <?php if($_SESSION['username']!=NULL){?>
                                 <td align="center">
                                     <a href="<?php echo $root;?>join_action/join_mem?ID=<?php echo $row[$j]['action_ID'];?>"><button class="btn btn-primary btn-lg">新增</button></a>

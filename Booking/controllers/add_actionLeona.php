@@ -1,13 +1,13 @@
 <?php 
 class add_actionLeona extends Controller{
         
-//-----------------------------------回首頁-------------------------------------------------------------
+//**新增活動內容(頁面)**//
         function add(){
            
             $this->view("add_action");
             
         }
-        
+//**新增活動，檢查有沒有輸入完整**//
         function insert_action(){
             if($_POST['action_name']=="" || $_POST['action_count']=="" || $_POST['action_get']=="" ||
                 $_POST['time']=="" || $_POST['date']=="" || $_POST['start_time']=="" || 
@@ -36,7 +36,7 @@ class add_actionLeona extends Controller{
                 exit;
             }
         }
-        
+//**比對是不是輸入純數字**//
         public function compare_number($tmp){
             if(!preg_match("/^([0-9]+)$/",$tmp))
             {
@@ -44,23 +44,26 @@ class add_actionLeona extends Controller{
             }
             
         }
+//**錯誤訊息**//
         public function error($error){
             $a = '<div class="alert alert-danger alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4><strong>'.$error.'</strong></h4></div>';
-            $b='';
-            $this->point($a,$b);
+            
+            $this->point($a);
         }
+//**成功訊息**//
         public function success($success){
             $a = '<div class="alert alert-success alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
                     <h4><strong>'.$success.'</strong></h4></div>';
-            $b='';
-            $this->point($a,$b);
+            
+            $this->point($a);
         }
-        public function point($a,$b)
+//**顯示訊息**//
+        public function point($a)
         {
-            $this ->view("point",Array($a,$b));
+            $this ->view("point",Array($a));
         }
         
 }

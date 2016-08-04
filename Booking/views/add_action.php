@@ -21,6 +21,7 @@
     <br>
     <br>
     <br>
+<!--新增活動-->
     <div class="row" align="center">
         <div class="container">
             <div class="row" style="width:600;background:#38c0df;border:2px #38c0df solid;border-radius:10px">
@@ -83,6 +84,7 @@
                     </div>
                     
                 </form>
+<!--判斷有沒有輸入正確-->
                 <script>
                 $(document).ready(function(){
                     $("#creative").on("click",function(){

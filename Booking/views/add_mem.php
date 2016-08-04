@@ -18,7 +18,11 @@
     
 </head>
 <body>
-    <?php $row = $data[0];?>
+<!--新增員工-->
+    <?php $row = $data[0];
+          $row2 = $data[1];
+          
+    ?>
     <br>
     <br>
     <br>
@@ -40,11 +44,12 @@
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <input onclick="creative(<?php echo $row[0]['action_ID'];?>)" style="background:#d11141" type="button" class="btn btn-success btn-lg" value="新增員工" />
-                            <button class="btn btn-success btn-lg"><a style="color:#FFF" href="<?php echo $root;?>index">回首頁</a></button>
+                            
                         </div>
                     </div>
                     
                 </form>
+<!--判斷有沒有輸入正確-->
                 <script>
                     function creative(num){
                         $("#debug").html('<h3 style="color:#d11141"><strong>檢查中......</strong></h3>');
@@ -59,10 +64,41 @@
                 
                 </script>
             </div>
+            <br><br>
+            <button class="btn btn-success btn-lg"><a style="color:#FFF" href="<?php echo $root;?>join_action/together">回活動列</a></button>
+            <button class="btn btn-success btn-lg"><a style="color:#FFF" href="<?php echo $root;?>index">回首頁</a></button>
+        </div>
+    </div>
+<!--顯示加入的名單-->
+    <hr style="border:2px #38c0df solid;">
+    <div class="row" align="center">
+        <div class="container" style="width:500">
+            <table class="table table-hover">
+                
+                <h3 style="color:#38c0df"><strong>可參加活動的名單</strong></h3>
+                <thead>
+                    <td align="center">
+                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;編號</font></strong></h4>
+                    </td>
+                    
+                </thead>
+                    <?php $x=count($row2);
+                        for($i=0;$i<$x;$i++)
+                        {
+                    ?>
+                    <tr>
+                        <td align="center">
+                           <h4><?php echo $row2[$i]['mem_number'];?></h4>
+                        </td>
+                       
+                    </tr>
+                    <?php }?>
+                            
+            </table>
         </div>
     </div>
     
     <!-- Bootstrap Core js -->
-    
+    <script src="<?php echo $root;?>views/js/bootstrap.js"></script>
 </body>
 </html>

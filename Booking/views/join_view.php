@@ -22,8 +22,10 @@
     <br><br><br>
     <?php $row = $data[0];
           $row2 = $data[1];
+          $row3 = $data[2];
 
     ?>
+<!--顯示該活動細項-->
     <div class="row" align="center">
         <div class="container">
             <table class="table table-hover">
@@ -65,11 +67,12 @@
                         <td align="center">
                             <h4><?php echo $row[0]['action_total'] - $row[0]['action_count'];?></h4>
                         </td>
+<!--如果剩餘人數為零或還未輸入可參加員工，不能按參加-->
                         <td align="center">
-                            <?php if($row[0]['action_count']==0){?>
+                            <?php if($row[0]['action_count']==0 ||$row3==NULL){?>
                             <button disabled="disabled" data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
                             <?php }?>
-                            <?php if($row[0]['action_count']!=0){?>
+                            <?php if($row[0]['action_count']!=0 && $row3!=NULL){?>
                             <button data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
                             <?php }?>
                         </td>
@@ -77,7 +80,7 @@
                             
             </table>
 
-            <!--參加活動modal-->
+<!--參加活動modal-->
                 <div class="modal fade" id="mymodal<?php echo $row[0]['action_ID'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <form id="form1">
