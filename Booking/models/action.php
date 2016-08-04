@@ -1,11 +1,12 @@
 <?php 
-    class action extends connect_two{
+    class action extends connect{
 
 //**搜尋編號並編號**//
         function select_ac($date){
-            $array = array($date);
-            $cmd = "SELECT `action_ID` FROM `action` WHERE `action_ID` LIKE '%?%' ORDER BY `action_ID` DESC LIMIT 0,1;";
+            $array = array('%'.$date.'%');
+            $cmd = "SELECT `action_ID` FROM `action` WHERE `action_ID` LIKE ?  ORDER BY `action_ID` DESC LIMIT 0,1;";
             $row = $this->connect_getdata($cmd,$array);
+            
             $one="001";
             //編號若不為第一筆則從當天的最後一筆+1
             if($row[0]['action_ID'] == NULL)
@@ -35,6 +36,45 @@
             $this->connect_mysql($cmd,$array);
             
             return "YES";
+        }
+//**搜尋全部活動**//
+        function select_action(){
+            $array = array();
+            $cmd = "SELECT * FROM `action`";
+            $row = $this->connect_getdata($cmd,$array);
+            return $row;
+        }
+//**搜尋單一活動**//
+        function select_action_view($ID){
+            $array = array($ID);
+            $cmd = "SELECT * FROM `action` WHERE `action_ID`=?";
+            $row = $this->connect_getdata($cmd,$array);
+            return $row;
+        }
+        //**搜尋活動的參與人數**//
+        function select_action_ID($ID)
+        {
+            $array = array($ID);
+            $cmd = "SELECT `action_count` FROM `action` WHERE `action_ID`=?;";
+            return $row = $this->connect_getdata($cmd,$array);
+        }
+//**更新人數**//
+        function update_action($get,$ID){
+            $count = 1 ;
+            $count = $count + (int)$get;
+            $row = $this-> select_action_ID($ID);//找剩餘人數
+            $count = (int)($row[0]['action_count']) - $count;
+            if($count < 0)
+            {
+                return 'more';
+                exit;
+            }
+            else{
+                $array = array($count,$ID);
+                $cmd = "UPDATE `action` SET `action_count`=? WHERE `action_ID`=?;";
+                $this->connect_mysql($cmd,$array);
+                return 'ok';
+            }   
         }
         
     }

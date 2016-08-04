@@ -7,7 +7,7 @@ class Controller{
         $this->result = $con->db();
     }
     public function model($model) {
-        require_once "../Booking/models/mysql_getdata.php";
+        require_once "../Booking/models/mysql_connect.inc.php";
         require_once "../Booking/models/$model.php";
         
         return new $model ();

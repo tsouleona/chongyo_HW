@@ -23,7 +23,6 @@ class add_actionLeona extends Controller{
                 exit;
             }
             $action = $this->model("action");
-            $join = $this->model("join_action");
             
             $date = date("Ymd");
             $ans = $action->select_ac($date);

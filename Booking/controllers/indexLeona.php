@@ -10,16 +10,24 @@ class indexLeona extends Controller{
 //**登入**//
         function login(){
             
-            $login = $this->model("check_login");
-            $row = $login->select();
-            
-            $op = $login->login($row,$_POST);
+            $login = $this->model("admin");
+            $op = $login->login($_POST);
+            if($op == 'ok')
+            {
+                $admin = $this->model("session");
+                $op = $admin->username($_POST['username']);
+                
+                if(!$op)
+                {
+                    header("location:".$this->result);
+                }
+            }
             
         }
 //**登出**//
         function logout(){
-            unset($_SESSION["username"]);
-            session_destroy();
+            $admin = $this->model("session");
+            $admin->unset_username();
             header("location:".$this->result);
         }
 

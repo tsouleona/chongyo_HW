@@ -1,6 +1,6 @@
 <?php
 
-class connect_one{
+class connect{
         protected $result;
         function connect_mysql($com,$array){
                //資料庫設定
@@ -28,6 +28,26 @@ class connect_one{
                 
                 
         }
+        
+        function connect_getdata($com,$array){
+        
+                $this->connect_mysql($com,$array);
+                $row = $this->result->fetchAll(PDO::FETCH_ASSOC);
+                
+                //法二
+                //$g = 0 ;
+                // while($tmp = mysql_fetch_assoc($this->result))
+                // {
+                //     $i = $g;
+                    
+                //     $row[$i] = $tmp;
+                    
+                //     $g = $g + 1;
+                // }
+                
+                return $row;
+                
+            }
         
 }
         
