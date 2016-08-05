@@ -1,6 +1,5 @@
 <html lang="en">
 <?php
-date_default_timezone_set("Asia/Taipei");
     $connect = new connect_db();
     $root = $connect->db();
 ?>
