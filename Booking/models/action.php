@@ -34,7 +34,7 @@
             VALUES(?,?,?,?,?,?,?,?,?);";
             
             $this->connect_mysql($cmd,$array);
-            
+            $this->dbgo = NULL; 
             return "YES";
         }
 //**搜尋全部活動**//
@@ -42,6 +42,7 @@
             $array = array();
             $cmd = "SELECT * FROM `action`";
             $row = $this->connect_getdata($cmd,$array);
+            $this->dbgo = NULL; 
             return $row;
         }
 //**搜尋單一活動**//
@@ -49,6 +50,7 @@
             $array = array($ID);
             $cmd = "SELECT * FROM `action` WHERE `action_ID`=?";
             $row = $this->connect_getdata($cmd,$array);
+            $this->dbgo = NULL; 
             return $row;
         }
 //**搜尋攜伴人數**//
@@ -56,6 +58,7 @@
             $array = array($ID);
             $cmd = "SELECT `action_get` FROM `action` WHERE `action_ID`=?";
             $row = $this->connect_getdata($cmd,$array);
+            $this->dbgo = NULL; 
             return $row[0]['action_get'];
         }
 
@@ -64,6 +67,7 @@
         {
             $array = array($ID);
             $cmd = "SELECT `action_count` FROM `action` WHERE `action_ID`=?;";
+            $this->dbgo = NULL; 
             return $row = $this->connect_getdata($cmd,$array);
         }
 //**更新人數**//

@@ -117,53 +117,66 @@ class join_actionLeona extends Controller{
             $front = $this->model("front");
             $action = $this->model("action");
             $get = $action->select_action_get($_POST['action_ID']);
+            
             if($_POST['front_get'] > $get)
             {
                 $this->error("最多只可攜帶".$get."位");
                 exit;
             }
-            
-            $op = $join->select_can_join($_POST['action_ID'],$_POST['mem_number']);//檢查表單有沒有個人((鎖ROW
-            if($op != NULL)
-            {
-                $op2 = $front->select_front($_POST['mem_number'],$_POST['action_ID']);//檢查有沒有在活動名單內
-                if($op2=='ok')
+            try{
+                $db = new connect();
+                $db->connect();
+                $db->dbgo->beginTransaction();
+                
+                $op = $join->select_can_join($_POST['action_ID'],$_POST['mem_number']);//檢查表單有沒有個人((鎖ROW
+                if($op != NULL)
                 {
-                    
-                    $op3 = $action->update_action($_POST['front_get'],$_POST['action_ID']);//看人數是否符合
-                    if($op3 =='more')
+                    $op2 = $front->select_front($_POST['mem_number'],$_POST['action_ID']);//檢查有沒有在活動名單內
+                    if($op2=='ok')
                     {
-                        $this->error("超過人數限制");
+                        
+                        $op3 = $action->update_action($_POST['front_get'],$_POST['action_ID']);//看人數是否符合
+                        if($op3 =='more')
+                        {
+                            throw new Exception("超過人數限制");
+                            exit;
+                        }
+                        
+                        if($op3 == 'ok')
+                        {
+                            $name = $member->select_mem($op);
+                            $op5 = $front->insert_front($_POST,$name);//加入活動
+                            if($op5 == 'ok')
+                            {
+                                $this->success($_POST['mem_number']."申請成功，資料更新需要時間請耐心等待");
+                                exit;
+                            }
+                        }
+                            
+                        
+                    }
+                    
+                    else{
+                        throw new Exception("已加入該活動名單");
                         exit;
                     }
                     
-                    if($op3 == 'ok')
-                    {
-                        $name = $member->select_mem($op);
-                        $op5 = $front->insert_front($_POST,$name);//加入活動
-                        if($op5 == 'ok')
-                        {
-                            $this->success($_POST['mem_number']."申請成功，資料更新需要時間請耐心等待");
-                            exit;
-                        }
-                    }
-                        
-                    
                 }
-                
-                else{
-                    $this->error("已加入該活動名單");
+                else
+                {
+                    throw new Exception("未列入可參加名單內");
                     exit;
                 }
-                
-            }
-            else
-            {
-                $this->error("未列入可參加名單內");
-                exit;
-            }
-                
+            $db->dbgo->commit();
+            $db->dbgo = NULL;
             
+            }
+            
+            catch(Exception $err){
+                $db->dbgo->rollBack();
+                $this->error($err->getMessage());
+                $db->dbgo = NULL;  
+            }
         }
 //**錯誤訊息**//
         public function error($error){

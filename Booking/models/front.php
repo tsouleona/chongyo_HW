@@ -7,6 +7,7 @@
             $array = array($ID);
             $cmd = "SELECT `mem_number`,`mem_name`,`mem_number_get` FROM `front` WHERE `action_ID`=?;";
             $row = $this->connect_getdata($cmd,$array);
+            $this->dbgo = NULL; 
             return $row;
         }
 //**搜尋該員工有沒有在參加活動名單內**//
