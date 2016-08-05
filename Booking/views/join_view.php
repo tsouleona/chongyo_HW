@@ -23,7 +23,7 @@
 <!--顯示該活動細項-->
     <div class="row" align="center">
         <div class="container">
-            <div id="view_one"></div>
+            <div id="view_one"><h2 style="color:#417dd4"><strong>請稍後，將為您服務</strong></h2></div>
             <script>
             
             var poll = function(){
@@ -93,7 +93,7 @@
     <hr style="border:2px #38c0df solid;">
     <div class="row" align="center">
         <div class="container" style="width:500">
-            <div id="front_list"></div>
+            <div id="front_list"><h2 style="color:#417dd4"><strong>請稍後，將為您服務</strong></h2></div>
             <script>
             
             var poll = function(){

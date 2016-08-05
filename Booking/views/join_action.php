@@ -28,7 +28,7 @@ date_default_timezone_set("Asia/Taipei");
 <!--顯示活動時間、名稱、網址、人數-->
     <div class="row" align="center">
         <div class="container">
-                <div id="action_all"></div>
+                <div id="action_all"><h2 style="color:#417dd4"><strong>請稍後，將為您服務</strong></h2></div>
                 <script>
                     $.ajax({
                         url:'<?php echo $root;?>join_action/getInfo',

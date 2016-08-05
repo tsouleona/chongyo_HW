@@ -41,13 +41,22 @@
                         </div>
                     </div>
                     <div id="debug"></div>
+                    <?php if($row[0]['action_count']==0){?>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <input onclick="creative(<?php echo $row[0]['action_ID'];?>)" style="background:#d11141" type="button" disabled="disabled" class="btn btn-success btn-lg" value="新增員工" />
+                            
+                        </div>
+                    </div>
+                    <?php }?>
+                    <?php if($row[0]['action_count']!=0){?>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
                             <input onclick="creative(<?php echo $row[0]['action_ID'];?>)" style="background:#d11141" type="button" class="btn btn-success btn-lg" value="新增員工" />
                             
                         </div>
                     </div>
-                    
+                    <?php }?>
                 </form>
 <!--判斷有沒有輸入正確-->
                 <script>
@@ -59,17 +68,6 @@
                         },function(data){
                             $("#debug").html("");
                             $("#debug").html(data);
-                        });
-                        
-                        $.ajax({
-                            url:'<?php echo $root;?>join_action/getCanJoinList',
-                            type:'POST',
-                            data:{ID:num},
-                            datatype:'html',
-                            success:function(data){
-                                $("#can_join_list").html(data);
-                            }
-                            
                         });
                     }
                 
@@ -84,8 +82,9 @@
     <hr style="border:2px #38c0df solid;">
     <div class="row" align="center">
         <div class="container" style="width:500">
-            <div id="can_join_list"></div>
+            <div id="can_join_list"><h2 style="color:#417dd4"><strong>請稍後，將為您服務</strong></h2></div>
             <script>
+            var poll = function(){
                 $.ajax({
                     url:'<?php echo $root;?>join_action/getCanJoinList',
                     type:'POST',
@@ -96,6 +95,8 @@
                     }
                     
                 });
+            }
+            setInterval(poll, 2000);
             </script>
         </div>
     </div>
