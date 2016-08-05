@@ -38,7 +38,7 @@
                 });
                 
             }
-            setInterval(poll, 10000);
+            setInterval(poll, 2000);
             </script>
 <!--參加活動modal-->
                 <div class="modal fade" id="mymodal<?php echo $_GET['ID'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -95,6 +95,7 @@
         <div class="container" style="width:500">
             <div id="front_list"></div>
             <script>
+            
             var poll = function(){
                $.ajax({
                     url:'<?php echo $root;?>join_action/getFrontList',
@@ -106,7 +107,7 @@
                     }
                 });
             }
-            setInterval(poll, 10000);
+            setInterval(poll, 2000);
             </script>
         </div>
     </div>

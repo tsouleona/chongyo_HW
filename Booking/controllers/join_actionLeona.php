@@ -122,7 +122,8 @@ class join_actionLeona extends Controller{
                 $this->error("最多只可攜帶".$get."位");
                 exit;
             }
-            $op = $join->select_can_join($_POST['action_ID'],$_POST['mem_number']);//檢查表單有沒有個人
+            
+            $op = $join->select_can_join($_POST['action_ID'],$_POST['mem_number']);//檢查表單有沒有個人((鎖ROW
             if($op != NULL)
             {
                 $op2 = $front->select_front($_POST['mem_number'],$_POST['action_ID']);//檢查有沒有在活動名單內

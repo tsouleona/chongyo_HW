@@ -8,6 +8,7 @@
             $array = array($join['action_ID'],$join['mem_number']);
             $cmd = "INSERT INTO `can_join`(`action_ID`,`mem_number`)VALUES(?,?);";
             $this->connect_mysql($cmd,$array);
+            
             return 'ok';
         }
 
@@ -17,12 +18,13 @@
             $array = array($ID);
             $cmd ="SELECT * FROM `can_join` WHERE `action_ID`=?";
             $row = $this->connect_getdata($cmd,$array);
+            
             return $row;
         }
 //**搜尋單一活動的可參加名單有沒有該員工**//
         function select_can_join($action_ID,$member_ID){
             $array = array($action_ID);
-            $cmd ="SELECT * FROM `can_join` WHERE `action_ID`=?";
+            $cmd ="SELECT * FROM `can_join` WHERE `action_ID`=? FOR UPDATE";
             $row = $this->connect_getdata($cmd,$array);
             
             $x = count($row);
