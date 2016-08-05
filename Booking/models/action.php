@@ -51,6 +51,14 @@
             $row = $this->connect_getdata($cmd,$array);
             return $row;
         }
+//**搜尋攜伴人數**//
+        function select_action_get($ID){
+            $array = array($ID);
+            $cmd = "SELECT `action_get` FROM `action` WHERE `action_ID`=?";
+            $row = $this->connect_getdata($cmd,$array);
+            return $row[0]['action_get'];
+        }
+
         //**搜尋活動的參與人數**//
         function select_action_ID($ID)
         {
@@ -67,7 +75,6 @@
             if($count < 0)
             {
                 return 'more';
-                exit;
             }
             else{
                 $array = array($count,$ID);

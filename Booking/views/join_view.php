@@ -20,68 +20,28 @@
 <body>
 
     <br><br><br>
-    <?php $row = $data[0];
-          $row2 = $data[1];
-          $row3 = $data[2];
-
-    ?>
 <!--顯示該活動細項-->
     <div class="row" align="center">
         <div class="container">
-            <table class="table table-hover">
-                <thead>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;活動時間</font></strong></h4>
-                    </td>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;活動名稱</font></strong></h4>
-                    </td>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;活動內容</font></strong></h4>
-                    </td>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;剩餘名額</font></strong></h4>
-                    </td>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;報名人數</font></strong></h4>
-                    </td>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-flash" aria-hidden="true"></span>&nbsp;參與與否</font></strong></h4>
-                    </td>
-                    
-                </thead>
-                    
-                    <tr>
-                        <td align="center">
-                           <h4><?php echo $row[0]['action_datetime'];?></h4>
-                        </td>
-                        <td align="center">
-                            <h4><?php echo $row[0]['action_name'];?></h4>
-                        </td>
-                        <td align="center">
-                           <h4><?php echo $row[0]['action_data'];?></h4>
-                        </td>
-                        <td align="center">
-                            <h4><?php echo $row[0]['action_count'];?></h4>
-                        </td>
-                        <td align="center">
-                            <h4><?php echo $row[0]['action_total'] - $row[0]['action_count'];?></h4>
-                        </td>
-<!--如果剩餘人數為零或還未輸入可參加員工，不能按參加-->
-                        <td align="center">
-                            <?php if($row[0]['action_count']==0 ||$row3==NULL){?>
-                            <button disabled="disabled" data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
-                            <?php }?>
-                            <?php if($row[0]['action_count']!=0 && $row3!=NULL){?>
-                            <button data-toggle="modal" data-target="#mymodal<?php echo $row[0]['action_ID']?>"  class="btn btn-primary"><h4>參加</h4></button>
-                            <?php }?>
-                        </td>
-                    </tr>
-                            
-            </table>
-
+            <div id="view_one"></div>
+            <script>
+            
+            var poll = function(){
+                $.ajax({
+                    url:'<?php echo $root;?>join_action/getActionOne',
+                    type:'POST',
+                    data: {ID: <?php echo $_GET['ID'];?>},
+                    datatype:'html',
+                    success:function(data){
+                        $("#view_one").html(data);
+                    }
+                });
+                
+            }
+            setInterval(poll, 10000);
+            </script>
 <!--參加活動modal-->
-                <div class="modal fade" id="mymodal<?php echo $row[0]['action_ID'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal fade" id="mymodal<?php echo $_GET['ID'];?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-sm" role="document">
                         <form id="form1">
                             <div class="modal-content">
@@ -91,33 +51,34 @@
                                 </div>
                                 <div class="modal-body">
                                     
-                                    <h4 style="color:#217385"><strong>輸入編號</strong><input type="text" id="mem_number<?php echo $row[0]['action_ID']?>" /></h4>
-                                    <h4 style="color:#217385"><strong>最多可攜伴人數為</strong></h4><input readonly id="count<?php echo $row[0]['action_ID']?>" value="<?php echo $row[0]['action_get'];?>" />
-                                    <h4 style="color:#217385"><strong>輸入攜伴人數</strong><input type="number" min="0" max="<?php echo $row[0]['action_get'];?>" name="front_get" id="front_get<?php echo $row[0]['action_ID']?>" /></h4>
-                                    <div id="danger<?php echo $row[0]['action_ID']?>"></div>
+                                    <h4 style="color:#217385"><strong>輸入編號</strong><input type="text" id="mem_number<?php echo $_GET['ID'];?>" /></h4>
+                                    <h4 style="color:#217385"><strong>輸入攜伴人數</strong><input type="number" min="0" max="<?php echo $row[0]['action_get'];?>" name="front_get" id="front_get<?php echo $_GET['ID'];?>" /></h4>
+                                    <div id="danger<?php echo $_GET['ID'];?>"></div>
                                 </div>
                                 <div class="modal-footer">
             
-                                    <input type="button"  class="btn btn-primary" onclick="check(<?php echo $row[0]['action_ID']?>)" value="確認" />
+                                    <input type="button"  class="btn btn-primary" onclick="check(<?php echo $_GET['ID'];?>)" value="確認" />
                                 </div>
                             </div>
                         </form>
                         <script>
                             function check(num){
                                 $("#danger"+num).html('<h4 style="color:red"><strong>檢查中......</strong></h4>');
-                                $.post("<?php echo $root;?>join_action/check_member",{
-                                    mem_number:$("#mem_number"+num).val(),
-                                    action_ID:num,
-                                    count:$("#count"+num).val(),
-                                    front_get:$("#front_get"+num).val()
-                                    
-                                },function(data){
-                                    $("#danger"+num).html("");
-                                    $("#danger"+num).append(data);
-                                })
+                                $.post(
+                                    "<?php echo $root;?>join_action/check_member",
+                                    {
+                                        mem_number:$("#mem_number"+num).val(),
+                                        action_ID:num,
+                                        count:$("#count"+num).val(),
+                                        front_get:$("#front_get"+num).val()
+                                        
+                                    },
+                                    function(data){
+                                        $("#danger"+num).html("");
+                                        $("#danger"+num).append(data);
+                                    }
                                 
-                                    
-                                
+                                );    
                             }
                         </script>
                     </div>
@@ -132,43 +93,21 @@
     <hr style="border:2px #38c0df solid;">
     <div class="row" align="center">
         <div class="container" style="width:500">
-            <table class="table table-hover">
-                
-                <h3 style="color:#38c0df"><strong>參加名單</strong></h3>
-                <thead>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;編號</font></strong></h4>
-                    </td>
-                    <?php if($_SESSION['username']!=NULL){?>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;姓名</font></strong></h4>
-                    </td>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;攜伴人數</font></strong></h4>
-                    </td>
-                    <?php }?>
-                    
-                </thead>
-                    <?php $x=count($row2);
-                        for($i=0;$i<$x;$i++)
-                        {
-                    ?>
-                    <tr>
-                        <td align="center">
-                           <h4><?php echo $row2[$i]['mem_number'];?></h4>
-                        </td>
-                        <?php if($_SESSION['username']!=NULL){?>
-                            <td align="center">
-                                <h4><?php echo $row2[$i]['mem_name'];?></h4>
-                            </td>
-                            <td align="center">
-                                <h4><?php echo $row2[$i]['mem_number_get'];?></h4>
-                            </td>
-                        <?php }?>
-                    </tr>
-                    <?php }?>
-                            
-            </table>
+            <div id="front_list"></div>
+            <script>
+            var poll = function(){
+               $.ajax({
+                    url:'<?php echo $root;?>join_action/getFrontList',
+                    type:'POST',
+                    data: {ID: <?php echo $_GET['ID'];?>},
+                    datatype:'html',
+                    success:function(data2){
+                        $("#front_list").html(data2);
+                    }
+                });
+            }
+            setInterval(poll, 10000);
+            </script>
         </div>
     </div>
 

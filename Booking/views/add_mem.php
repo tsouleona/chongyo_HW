@@ -20,7 +20,7 @@
 <body>
 <!--新增員工-->
     <?php $row = $data[0];
-          $row2 = $data[1];
+          
           
     ?>
     <br>
@@ -59,7 +59,18 @@
                         },function(data){
                             $("#debug").html("");
                             $("#debug").html(data);
-                        })
+                        });
+                        
+                        $.ajax({
+                            url:'<?php echo $root;?>join_action/getCanJoinList',
+                            type:'POST',
+                            data:{ID:num},
+                            datatype:'html',
+                            success:function(data){
+                                $("#can_join_list").html(data);
+                            }
+                            
+                        });
                     }
                 
                 </script>
@@ -73,28 +84,19 @@
     <hr style="border:2px #38c0df solid;">
     <div class="row" align="center">
         <div class="container" style="width:500">
-            <table class="table table-hover">
-                
-                <h3 style="color:#38c0df"><strong>可參加活動的名單</strong></h3>
-                <thead>
-                    <td align="center">
-                       <h4><strong><font color="#38c0df"><span class="glyphicon glyphicon-bell" aria-hidden="true"></span>&nbsp;編號</font></strong></h4>
-                    </td>
+            <div id="can_join_list"></div>
+            <script>
+                $.ajax({
+                    url:'<?php echo $root;?>join_action/getCanJoinList',
+                    type:'POST',
+                    data:{ID:<?php echo $row[0]['action_ID'];?>},
+                    datatype:'html',
+                    success:function(data){
+                        $("#can_join_list").html(data);
+                    }
                     
-                </thead>
-                    <?php $x=count($row2);
-                        for($i=0;$i<$x;$i++)
-                        {
-                    ?>
-                    <tr>
-                        <td align="center">
-                           <h4><?php echo $row2[$i]['mem_number'];?></h4>
-                        </td>
-                       
-                    </tr>
-                    <?php }?>
-                            
-            </table>
+                });
+            </script>
         </div>
     </div>
     

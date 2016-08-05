@@ -3,28 +3,45 @@ class join_actionLeona extends Controller{
         
 //**活動列(頁面)**//
         function together(){
-            $row = $this->join_select();
-            $this->view("join_action",Array($row));
+            $this->view("join_action");
             
+        }
+//**ajax抓全部活動**//
+        function getInfo(){
+            $row = $this->join_select();
+            $this->view("join_action_ajax",Array($row));
         }
 //**活動細項(頁面)**//
         function join_view(){
-            $ID = $_GET['ID'];
-            $row = $this->join_select_view($ID);
-            $row2 = $this->join_select_front($ID);
-            $row3 = $this->select_can_join($ID);
-            $this->view("join_view",Array($row,$row2,$row3));
+            $this->view("join_view");
             
         }
+//**ajax抓單一活動**//
+        function getActionOne(){
+            $ID = $_POST['ID'];
+            $row = $this->join_select_view($ID);
+            $row3 = $this->select_can_join($ID);
+            $this->view("join_view_ajax",Array($row,$row3));
+        }
+//**ajax抓單一活動的參加名單**//
+        function getFrontList(){
+            $ID = $_POST['ID'];
+            $row2 = $this->join_select_front($ID);
+            $this->view("join_front_ajax",Array($row2));
+        }
+        
 //**新增員工(頁面)**//
         function join_mem(){
             $ID = $_GET['ID'];
             $row = $this->join_select_view($ID);
-            $row2 = $this->select_can_join($ID);
-            $this->view("add_mem",Array($row,$row2));
+            $this->view("add_mem",Array($row));
         }
-        
-        
+//**ajax抓單一活動可參加的名單**//
+        function getCanJoinList(){
+            $ID = $_POST['ID'];
+            $row2 = $this->select_can_join($ID);
+            $this->view("add_mem_ajax",Array($row2));
+        }
         
         
 
@@ -94,28 +111,25 @@ class join_actionLeona extends Controller{
                 $this->error("尚未輸入完整");
                 exit;
             }
-            if($_POST['front_get'] > $_POST['count'])
-            {
-                $this->error("可攜帶人數超過");
-                exit;
-            }
+            
             $join = $this->model("can_join");
             $member = $this->model("member");
             $front = $this->model("front");
             $action = $this->model("action");
+            $get = $action->select_action_get($_POST['action_ID']);
+            if($_POST['front_get'] > $get)
+            {
+                $this->error("最多只可攜帶".$get."位");
+                exit;
+            }
             $op = $join->select_can_join($_POST['action_ID'],$_POST['mem_number']);//檢查表單有沒有個人
-            
             if($op != NULL)
             {
-                $op4 = $member->select_mem($op);
-                if($op4!=NULL){
-                    
-                }
                 $op2 = $front->select_front($_POST['mem_number'],$_POST['action_ID']);//檢查有沒有在活動名單內
                 if($op2=='ok')
                 {
                     
-                    $op3 = $action->update_action($_POST['front_get'],$_POST['action_ID']);//看人數
+                    $op3 = $action->update_action($_POST['front_get'],$_POST['action_ID']);//看人數是否符合
                     if($op3 =='more')
                     {
                         $this->error("超過人數限制");
@@ -124,10 +138,11 @@ class join_actionLeona extends Controller{
                     
                     if($op3 == 'ok')
                     {
-                        $op5 = $front->insert_front($_POST,$op4);//加入活動
+                        $name = $member->select_mem($op);
+                        $op5 = $front->insert_front($_POST,$name);//加入活動
                         if($op5 == 'ok')
                         {
-                            $this->success($_POST['mem_number']."申請成功");
+                            $this->success($_POST['mem_number']."申請成功，資料更新需要時間請耐心等待");
                             exit;
                         }
                     }
