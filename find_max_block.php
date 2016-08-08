@@ -89,7 +89,16 @@
                 $array[$i]=array();
             }
     }
- 
+    echo "<br>比對後的陣列------------------------------------------<br>";
+     //跑結果
+    foreach($array as $key)
+    {
+        foreach($key as $value){
+          echo $value." ";
+        }
+        echo "<br>";
+    }
+    echo "<br>比對長度後------------------------------------------<br>";
     //比對長度，排大小
     for($i=0;$i<count($array);$i++)
     {
@@ -112,6 +121,14 @@
                 
             }
         }
+    }
+    //跑結果
+    foreach($array as $key)
+    {
+        foreach($key as $value){
+          echo $value." ";
+        }
+        echo "<br>";
     }
     
     echo "<br>結果------------------------------------------<br>";
