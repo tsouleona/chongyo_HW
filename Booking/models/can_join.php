@@ -9,7 +9,7 @@
             $cmd = "INSERT INTO `can_join`(`action_ID`,`mem_number`)VALUES(?,?);";
             $this->connect_mysql($cmd,$array);
             $this->dbgo = NULL; 
-            return 'ok';
+            return true;
         }
 
 //**搜尋單一活動的可參加名單**//

@@ -18,7 +18,7 @@
             $row = $this->connect_getdata($cmd,$array);
             if($row[0]['mem_number']==NULL)
             {
-                return 'ok';
+                return true;
             }
         }
 //**新增到單一活動的參加名單**//
@@ -27,7 +27,7 @@
             $cmd = "INSERT INTO `front`(`action_ID`,`mem_number`,`mem_name`,`mem_number_get`)
             VALUES(?,?,?,?)";
             $this->connect_mysql($cmd,$array);
-            return 'ok';
+            return true;
         }
     }
 ?>

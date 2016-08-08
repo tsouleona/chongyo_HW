@@ -6,7 +6,7 @@
             $array = array('%'.$date.'%');
             $cmd = "SELECT `action_ID` FROM `action` WHERE `action_ID` LIKE ?  ORDER BY `action_ID` DESC LIMIT 0,1;";
             $row = $this->connect_getdata($cmd,$array);
-            
+            $this->dbgo = NULL;
             $one="001";
             //編號若不為第一筆則從當天的最後一筆+1
             if($row[0]['action_ID'] == NULL)

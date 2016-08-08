@@ -66,7 +66,7 @@ class join_actionLeona extends Controller{
                 if($op2 == NULL)
                 {
                     $op3 = $join->insert_can($_POST);
-                    if($op3 == 'ok')
+                    if($op3)
                     {
                         $this->success("新增成功");
                         exit;
@@ -132,7 +132,7 @@ class join_actionLeona extends Controller{
                 if($op != NULL)
                 {
                     $op2 = $front->select_front($_POST['mem_number'],$_POST['action_ID']);//檢查有沒有在活動名單內
-                    if($op2=='ok')
+                    if($op2)
                     {
                         
                         $op3 = $action->update_action($_POST['front_get'],$_POST['action_ID']);//看人數是否符合
@@ -146,7 +146,7 @@ class join_actionLeona extends Controller{
                         {
                             $name = $member->select_mem($op);
                             $op5 = $front->insert_front($_POST,$name);//加入活動
-                            if($op5 == 'ok')
+                            if($op5)
                             {
                                 $this->success($_POST['mem_number']."申請成功，資料更新需要時間請耐心等待");
                                 exit;
